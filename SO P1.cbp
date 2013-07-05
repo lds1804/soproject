@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="SO P1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/SO P1" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/SO P1" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="agendador.cpp" />
+		<Unit filename="agendador.h" />
+		<Unit filename="cpu.cpp" />
+		<Unit filename="cpu.h" />
+		<Unit filename="disco.cpp" />
+		<Unit filename="disco.h" />
+		<Unit filename="evento.cpp" />
+		<Unit filename="evento.h" />
+		<Unit filename="fila.cpp" />
+		<Unit filename="fila.h" />
+		<Unit filename="impressora.cpp" />
+		<Unit filename="impressora.h" />
+		<Unit filename="job.cpp" />
+		<Unit filename="job.h" />
+		<Unit filename="leitora.cpp" />
+		<Unit filename="leitora.h" />
+		<Unit filename="listacircular.cpp" />
+		<Unit filename="listacircular.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="memoria.cpp" />
+		<Unit filename="memoria.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
