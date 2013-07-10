@@ -1,0 +1,44 @@
+Teste 1:
+Tempo médio na fila CPU: 25,32
+Tempo médio na fila memória:442,23
+Tempo médio fila impressora 1: 43,21
+Tempo médio fila impressora 2: 52,57
+Tempo médio fila leitora 1: 64,53
+Tempo médio fila leitora 2: 45,37
+Tempo médio fila disco : 34,56
+
+Teste 2:
+Tempo médio na fila CPU: 34,23
+Tempo médio na fila memória: 543,23
+Tempo médio fila impressora 1: 56,34 
+Tempo médio fila impressora 2: 37,56
+Tempo médio fila leitora 1: 47,87
+Tempo médio fila leitora 2: 52,86
+Tempo médio fila disco : 34,12
+
+Teste 3:
+Tempo médio na fila CPU: 39,45
+Tempo médio na fila memória: 321,67
+Tempo médio fila impressora 1: 56,26
+Tempo médio fila impressora 2: 38,05
+Tempo médio fila leitora 1: 36,58
+Tempo médio fila leitora 2: 59,34
+Tempo médio fila disco : 34,78
+
+Teste 4:
+Tempo médio na fila CPU: 42,34
+Tempo médio na fila memória: 220,35
+Tempo médio fila impressora 1: 49,65
+Tempo médio fila impressora 2: 54,33
+Tempo médio fila leitora 1: 39,43
+Tempo médio fila leitora 2: 54,67
+Tempo médio fila disco : 32,54
+
+Teste 5:
+Tempo médio na fila CPU: 51,24
+Tempo médio na fila memória: 178,56
+Tempo médio fila impressora 1: 36,87
+Tempo médio fila impressora 2: 62,90
+Tempo médio fila leitora 1: 57,22
+Tempo médio fila leitora 2: 41,70
+Tempo médio fila disco : 24,92
