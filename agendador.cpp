@@ -12,13 +12,16 @@ void agendador::criajobs()
 
     }
 
-
     job* novojob = new job(200, 400, 3, 4, 1, 3, 2, 0, 20);
     listadejobs[0] = novojob;
     njobs++;
     job* novojob2 = new job(300, 100, 5, 1, 4, 2, 3, 1, 100);
     listadejobs[1] = novojob2;
     njobs++;
+    job* novojob3 = new job(200, 200, 4, 2, 3, 1, 2, 2, 50);
+    listadejobs[2] = novojob3;
+    njobs++;
+
 
 }
 
@@ -50,14 +53,15 @@ agendador::agendador(int temptotal)
     nfilaleit1 = 0;
     tfilaleit1 = 0;
     tfilaleit2 = 0;
-    nfilaleit2 = 0;
+
+  nfilaleit2 = 0;
 
 }
 
 void agendador::iniciasimulacao()
 {   bool primeiravez = false;
     bool firstenter = false;
-    while ((tempoatual <= 10000 && ListaDeEventos->listavazia() == false)
+    while ((ListaDeEventos->listavazia() == false)
             || firstenter == false)
     {
         firstenter = true;
@@ -351,6 +355,7 @@ void agendador::Evento4(evento* eventatual)
             ListaDeEventos->insereeventolista(event);
             leit1->setjobusandoleitora(jobatual);
             jobatual->decrementanesleit1();
+
         }
 
         else if (leit1->getfilaleitora()->filavazia() == false
@@ -358,13 +363,18 @@ void agendador::Evento4(evento* eventatual)
         {
             job* jobprov = leit1->removejobfilaleitora();
             jobprov->setsaifilaleitora1(tempat);
-            jobprov->addtfilaleit1j(tempat-jobprov->getentrafilaleitora1());
+//          jobprov->addtfilaleit1j(tempat-jobprov->getentrafilaleitora1());
+            event->setidevento(5);
+            event->setjob(jobprov); // falta configurar o tempo do job nao configurei
+            event->settempo(tempat + leit1->gettamanhoporvelocidade());
+            ListaDeEventos->insereeventolista(event);
 
-            event->setjob(jobprov);
             leit1->inserefilaleitora(jobatual);
             jobatual->setentrafilaleitora1(tempat);
             jobatual->incnfilaleit1j();
-            ListaDeEventos->insereeventolista(event);
+
+            jobprov->decrementanesleit1();
+
 
         }
 
@@ -397,6 +407,9 @@ void agendador::Evento4(evento* eventatual)
         if (proximojobcpu != NULL)
             ListaDeEventos->insereeventolista(Event2);
 
+
+
+
     }
 
     else if (jobatual->getnumerodeentradassaidaleitora2() > 0)
@@ -416,17 +429,22 @@ void agendador::Evento4(evento* eventatual)
             ListaDeEventos->insereeventolista(event);
             leit2->setjobusandoleitora(jobatual);
             jobatual->decrementanesleit2();
+
         }
         else if (leit2->getfilaleitora()->filavazia() == false&& leit2->jobatualleitora() == NULL)
-        {
-            job* jobprov = leit2->removejobfilaleitora();
+        {   job* jobprov = leit2->removejobfilaleitora();
             jobprov->setsaifilaleitora2(tempat);
-            jobprov->addtfilaleit2j(tempat-jobprov->getentrafilaleitora2());
-            event->setjob(jobprov);
-            leit2->inserefilaleitora(jobatual);
-
-
+//          jobprov->addtfilaleit1j(tempat-jobprov->getentrafilaleitora1());
+            event->setidevento(5);
+            event->setjob(jobprov); // falta configurar o tempo do job nao configurei
+            event->settempo(tempat + leit2->gettamanhoporvelocidade());
             ListaDeEventos->insereeventolista(event);
+
+            leit2->inserefilaleitora(jobatual);
+            jobatual->setentrafilaleitora1(tempat);
+            jobatual->incnfilaleit2j();
+
+            jobprov->decrementanesleit2();
 
         }
 
@@ -474,18 +492,25 @@ void agendador::Evento4(evento* eventatual)
             ListaDeEventos->insereeventolista(event);
             disco1->setjobusandodisco(jobatual);
             jobatual->decrementanesdisc1();
+
         }
 
         else if (disco1->getfiladisco()->filavazia() == false
                  && disco1->jobatualdisco() == NULL)
         {
             job* jobprov = disco1->removejobfiladisco();
-            jobprov->addtfiladiscoj(tempat-jobprov->getentrafiladisco());
-            event->setjob(jobprov);
+            jobprov->setsaifiladisco(tempat);
+//          jobprov->addtfilaleit1j(tempat-jobprov->getentrafilaleitora1());
+            event->setidevento(5);
+            event->setjob(jobprov); // falta configurar o tempo do job nao configurei
+            event->settempo(tempat + disco1->gettamanhoporvelocidade());
+            ListaDeEventos->insereeventolista(event);
+
             disco1->inserefiladisco(jobatual);
             jobatual->setentrafiladisco(tempat);
             jobatual->incnfiladiscoj();
-            ListaDeEventos->insereeventolista(event);
+
+            jobprov->decrementanesdisc1();
 
         }
 
@@ -533,18 +558,25 @@ void agendador::Evento4(evento* eventatual)
             ListaDeEventos->insereeventolista(event);
             imp1->setjobusandoimpressora(jobatual);
             jobatual->decrementanesimp1();
+
         }
 
         else if (imp1->getfilaimpressora()->filavazia() == false
                  && imp1->jobatualimpressora() == NULL)
         {
             job* jobprov = imp1->removejobfilaimpressora();
-            jobprov->addtfilaimp1j(tempat-jobprov->getentrafilaimpressora1());
-            event->setjob(jobprov);
+            jobprov->setsaifilaimpressora1(tempat);
+//          jobprov->addtfilaleit1j(tempat-jobprov->getentrafilaleitora1());
+            event->setidevento(5);
+            event->setjob(jobprov); // falta configurar o tempo do job nao configurei
+            event->settempo(tempat + imp1->gettamanhoporvelocidade());
+            ListaDeEventos->insereeventolista(event);
+
             imp1->inserefilaimpressora(jobatual);
             jobatual->setentrafilaimpressora1(tempat);
             jobatual->incnfilaimp1j();
-            ListaDeEventos->insereeventolista(event);
+
+            jobprov->decrementanesimp1();
 
         }
 
@@ -593,6 +625,7 @@ void agendador::Evento4(evento* eventatual)
             ListaDeEventos->insereeventolista(event);
             imp2->setjobusandoimpressora(jobatual);
             jobatual->decrementanesimp2();
+
         }
 
         else if (imp2->getfilaimpressora()->filavazia() == false
@@ -600,12 +633,17 @@ void agendador::Evento4(evento* eventatual)
         {
             cout << "Fila cheia e impressora desocupada" << endl;
             job* jobprov = imp2->removejobfilaimpressora();
-            jobprov->addtfilaimp2j(tempat-jobprov->getentrafilaimpressora2());
-            event->setjob(jobprov);
+            jobprov->setsaifilaimpressora2(tempat);
+//          jobprov->addtfilaleit1j(tempat-jobprov->getentrafilaleitora1());
+            event->setidevento(5);
+            event->setjob(jobprov); // falta configurar o tempo do job nao configurei
+            event->settempo(tempat + imp2->gettamanhoporvelocidade());
+            ListaDeEventos->insereeventolista(event);
+
             imp2->inserefilaimpressora(jobatual);
             jobatual->setentrafilaimpressora2(tempat);
             jobatual->incnfilaimp2j();
-            ListaDeEventos->insereeventolista(event);
+            jobprov->decrementanesimp2();
         }
 
         else
@@ -642,6 +680,7 @@ void agendador::Evento5(evento* eventoatual)
 {
     job* jobatual = eventoatual->getjob();
 
+
     int tempoat = eventoatual->gettempo();
     tempoatual = tempoat;
 
@@ -653,12 +692,15 @@ void agendador::Evento5(evento* eventoatual)
         if (disco1->getfiladisco()->filavazia() == false)
         {
             job* proximojob = disco1->removejobfiladisco();
+            disco1->setjobusandodisco(proximojob);
+            proximojob->setsaifiladisco(tempoat);
             proximojob->addtfiladiscoj(tempoat-proximojob->getentrafiladisco());
             evento* event = new evento();
             event->setjob(proximojob);
-            event->settempo(tempoat + 5);
-            event->setidevento(4);
+            event->settempo(tempoat + disco1->gettamanhoporvelocidade());
+            event->setidevento(5);
             ListaDeEventos->insereeventolista(event);
+            proximojob->decrementanesdisc1();
         }
     }
     if (imp1->jobatualimpressora() == jobatual)
@@ -666,12 +708,15 @@ void agendador::Evento5(evento* eventoatual)
         if (imp1->getfilaimpressora()->filavazia() == false)
         {
             job* proximojob = imp1->removejobfilaimpressora();
+            imp1->setjobusandoimpressora(proximojob);
+            proximojob->setsaifilaimpressora1(tempoat);
             proximojob->addtfilaimp1j(tempoat-proximojob->getentrafilaimpressora1());
             evento* event = new evento();
             event->setjob(proximojob);
-            event->settempo(tempoat + 5);
-            event->setidevento(4);
+            event->settempo(tempoat + imp1->gettamanhoporvelocidade());
+            event->setidevento(5);
             ListaDeEventos->insereeventolista(event);
+            proximojob->decrementanesimp1();
         }
     }
     if (imp2->jobatualimpressora() == jobatual)
@@ -679,12 +724,15 @@ void agendador::Evento5(evento* eventoatual)
         if (imp2->getfilaimpressora()->filavazia() == false)
         {
             job* proximojob = imp2->removejobfilaimpressora();
+            imp2->setjobusandoimpressora(proximojob);
+            proximojob->setsaifilaimpressora2(tempoat);
             proximojob->addtfilaimp2j(tempoat-proximojob->getentrafilaimpressora2());
             evento* event = new evento();
             event->setjob(proximojob);
-            event->settempo(tempoat + 5);
-            event->setidevento(4);
+            event->settempo(tempoat + imp2->gettamanhoporvelocidade());
+            event->setidevento(5);
             ListaDeEventos->insereeventolista(event);
+            proximojob->decrementanesimp2();
         }
     }
     if (leit1->jobatualleitora() == jobatual)
@@ -692,13 +740,15 @@ void agendador::Evento5(evento* eventoatual)
         if (leit1->getfilaleitora()->filavazia() == false)
         {
             job* proximojob = leit1->removejobfilaleitora();
+            leit1->setjobusandoleitora(proximojob);
             proximojob->setsaifilaleitora1(tempoat);
             proximojob->addtfilaleit1j(tempoat-proximojob->getentrafilaleitora1());
             evento* event = new evento();
             event->setjob(proximojob);
-            event->settempo(tempoat + 5);
-            event->setidevento(4);
+            event->settempo(tempoat + leit1->gettamanhoporvelocidade());
+            event->setidevento(5);
             ListaDeEventos->insereeventolista(event);
+            proximojob->decrementanesleit1();
         }
     }
     if (leit2->jobatualleitora() == jobatual)
@@ -706,26 +756,40 @@ void agendador::Evento5(evento* eventoatual)
         if (leit2->getfilaleitora()->filavazia() == false)
         {
             job* proximojob = leit2->removejobfilaleitora();
+            leit2->setjobusandoleitora(proximojob);
+            proximojob->setsaifilaleitora2(tempoat);
             proximojob->addtfilaleit2j(tempoat-proximojob->getentrafilaleitora2());
             evento* event = new evento();
             event->setjob(proximojob);
-            event->settempo(tempoat + 5);
-            event->setidevento(4);
+            event->settempo(tempoat + leit2->gettamanhoporvelocidade());
+            event->setidevento(5);
             ListaDeEventos->insereeventolista(event);
+            proximojob->decrementanesleit2()
+            ;
         }
     }
 
     if (disco1->jobatualdisco() == jobatual)
-        disco1->setjobusandodisco(NULL);
-    if (imp1->jobatualimpressora() == jobatual)
-        imp1->setjobusandoimpressora(NULL);
-    if (imp2->jobatualimpressora() == jobatual)
-        imp2->setjobusandoimpressora(NULL);
-    if (leit1->jobatualleitora() == jobatual)
-        leit1->setjobusandoleitora(NULL);
-    if (leit2->jobatualleitora() == jobatual)
-        leit2->setjobusandoleitora(NULL);
+        {disco1->setjobusandodisco(NULL);
 
+        }
+
+    if (imp1->jobatualimpressora() == jobatual)
+        {imp1->setjobusandoimpressora(NULL);
+
+        }
+    if (imp2->jobatualimpressora() == jobatual)
+        {imp2->setjobusandoimpressora(NULL);
+
+        }
+    if (leit1->jobatualleitora() == jobatual)
+        {leit1->setjobusandoleitora(NULL);
+
+        }
+    if (leit2->jobatualleitora() == jobatual)
+        {leit2->setjobusandoleitora(NULL);
+
+        }
     evento* event2;
     event2 = new evento();
     event2->settempo(tempoat + 5);
